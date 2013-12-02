@@ -1,7 +1,9 @@
 ###################
 ec2-simple-snapshot
 ###################
-Version: 1.0.0
+.. image:: https://travis-ci.org/nickryand/ec2-simple-snapshot.png?branch=master
+   :target: https://travis-ci.org/nickryand/ec2-simple-snapshot
+   :alt: Build Status
 
 ************
 Introduction
