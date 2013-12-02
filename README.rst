@@ -15,10 +15,12 @@ boto module.
 Installation
 ************
 
-Install via `pip`_:
+Install via `pip`_::
+
    $ sudo pip install ec2-simple-snapshot
 
-Install from source:
+Install from source::
+
    $ git clone https://github.com/nickryand/ec2-simple-snapshot.git
    $ cd ec2-simple-snapshot
    $ sudo python setup.py install
@@ -85,25 +87,31 @@ This is a list of the required set of IAM actions needed for each command.
 **************
 Usage Examples
 **************
-**Show help screen:**
+Show help screen::
+
     $ ec2-simple-snapshot -h
 
-**Show help screen for a subcommand:**
+Show help screen for a subcommand::
+
     $ ec2-simple-snapshot <command> -h
 
-**List the two newest snapshots owned by your AWS Account:**
+List the two newest snapshots owned by your AWS Account::
+
     $ ec2-simple-snapshot list --count 2
 
-**List snapshots taken within the last 4 days:**
+List snapshots taken within the last 4 days::
+
     $ ec2-simple-snapshot list --count 4 --type days
 
-**Delete snapshots older than 3 days that have the tag "Type=Backup" and "Name=Test":**
+Delete snapshots older than 3 days that have the tag "Type=Backup" and "Name=Test"::
+
     $ ec2-simple-snapshot delete --count 3 --type days --filter 'Type=Backup' 'Name=Test'
 
-**Delete all but the last 30 snapshots, however limit deletes to 2:**
+Delete all but the last 30 snapshots, however limit deletes to 2::
     $ ec2-simple-snapshot delete --count 30 --limit 2
 
-**Create a snapshot for volume 'vol-123456' setting a description and adding a tag:**
+Create a snapshot for volume 'vol-123456' setting a description and adding a tag::
+
     $ ec2-simple-snapshot create \
     > --description "This is a test"
     > --tags "Environment=Production" vol-123456
