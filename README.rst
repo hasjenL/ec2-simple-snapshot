@@ -108,6 +108,7 @@ Delete snapshots older than 3 days that have the tag "Type=Backup" and "Name=Tes
     $ ec2-simple-snapshot delete --count 3 --type days --filter 'Type=Backup' 'Name=Test'
 
 Delete all but the last 30 snapshots, however limit deletes to 2::
+
     $ ec2-simple-snapshot delete --count 30 --limit 2
 
 Create a snapshot for volume 'vol-123456' setting a description and adding a tag::
