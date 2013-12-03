@@ -22,4 +22,3 @@ from simplesnapshot.cmdline import main as _main
 def main():
     # Entry point for command line script
     sys.exit(_main(sys.argv[1:]))
-

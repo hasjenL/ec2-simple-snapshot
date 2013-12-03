@@ -22,6 +22,7 @@ from argparse import ArgumentParser
 from boto import ec2
 from simplesnapshot.snapshot import SimpleSnapshotConsole
 
+
 def parse_args(args):
     """Parse arguments from string
 
@@ -87,11 +88,12 @@ def parse_args(args):
                                help="Add a description to new snapshot.")
     create_parser.add_argument("--tags", nargs="+", dest="tags",
                                metavar="\"name=value\"", default=[],
-                               help=("Tags to set on the Snapshot. This option "
-                                     "may be used multiple times. "
+                               help=("Tags to set on the Snapshot. This option"
+                                     " may be used multiple times. "
                                      "EXAMPLE: 'type=backup'"))
 
     return parser.parse_args(args)
+
 
 def read_config(fp, section):
     """Read a config file and ensure required sections exist
@@ -125,6 +127,7 @@ def read_config(fp, section):
 
     return items
 
+
 def parse_items(items):
     """Parse name=value strings into a dictionary
 
@@ -148,6 +151,7 @@ def parse_items(items):
 
     return items_dict
 
+
 def main(argv):
     args = parse_args(argv)
 
@@ -157,9 +161,11 @@ def main(argv):
     if args.region is not None:
         config['region'] = args.region
 
-    conn = ec2.connect_to_region(config['region'],
-               aws_access_key_id=config['aws_access_key_id'],
-               aws_secret_access_key=config['aws_secret_access_key'])
+    conn = ec2.connect_to_region(
+        config['region'],
+        aws_access_key_id=config['aws_access_key_id'],
+        aws_secret_access_key=config['aws_secret_access_key']
+    )
 
     # Extensive use of getattr here so we can provide defaults and not
     # raise an exception for a missing attribute. This is done because
