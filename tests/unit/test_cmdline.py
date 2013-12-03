@@ -9,6 +9,7 @@ from boto import ec2
 from simplesnapshot.snapshot import SimpleSnapshotConsole
 from simplesnapshot.cmdline import *
 
+
 class TestCmdline(unittest.TestCase):
 
     def setUp(self):
@@ -49,7 +50,6 @@ class TestCmdline(unittest.TestCase):
             "Testing SimpleSnapshotConsole call"
         )
         self.mock_snapshot.return_value = self.mock_snapshot_instance
-
 
     def tearDown(self):
         self.parse_args_patch.stop()
@@ -172,20 +172,22 @@ class TestCmdline(unittest.TestCase):
     def test_main_list_call_signature(self):
         self.parse_args_patch.stop()
         self.assertRaises(RuntimeError, main, self.fakecmdline)
-        self.mock_snapshot.assert_called_once_with(self.fakeconn,
-                                                   snapshot_ids=[],
-                                                   volume_id=None,
-                                                   description="",
-                                                   count=0,
-                                                   limit=0,
-                                                   count_type="num",
-                                                   filters={
-                                                       "volume-id": "vol-123456"
-                                                   },
-                                                   tags={},
-                                                   owner="self",
-                                                   auto_confirm=True,
-                                                   dry_run=True)
+        self.mock_snapshot.assert_called_once_with(
+            self.fakeconn,
+            snapshot_ids=[],
+            volume_id=None,
+            description="",
+            count=0,
+            limit=0,
+            count_type="num",
+            filters={
+                "volume-id": "vol-123456"
+            },
+            tags={},
+            owner="self",
+            auto_confirm=True,
+            dry_run=True
+        )
         self.mock_snapshot_instance.run.assert_called_once_with("list")
         self.parse_args_patch.start()
 
@@ -195,19 +197,21 @@ class TestCmdline(unittest.TestCase):
                    "--description CreateTest --tags Name=Test "
                    "Type=UnderTest -- vol-9999999").split()
         self.assertRaises(RuntimeError, main, cmdline)
-        self.mock_snapshot.assert_called_once_with(self.fakeconn,
-                                                   snapshot_ids=[],
-                                                   volume_id="vol-9999999",
-                                                   description="CreateTest",
-                                                   count=0,
-                                                   limit=0,
-                                                   count_type="num",
-                                                   filters={},
-                                                   tags={"Name": "Test",
-                                                         "Type": "UnderTest"},
-                                                   owner="self",
-                                                   auto_confirm=True,
-                                                   dry_run=False)
+        self.mock_snapshot.assert_called_once_with(
+            self.fakeconn,
+            snapshot_ids=[],
+            volume_id="vol-9999999",
+            description="CreateTest",
+            count=0,
+            limit=0,
+            count_type="num",
+            filters={},
+            tags={"Name": "Test",
+                  "Type": "UnderTest"},
+            owner="self",
+            auto_confirm=True,
+            dry_run=False
+        )
         self.mock_snapshot_instance.run.assert_called_once_with("create")
         self.parse_args_patch.start()
 
@@ -216,17 +220,19 @@ class TestCmdline(unittest.TestCase):
         cmdline = ("-y --r eu-west-1 delete --count=2 --type=days "
                    "--filter Name=Backup -- snap-111111").split()
         self.assertRaises(RuntimeError, main, cmdline)
-        self.mock_snapshot.assert_called_once_with(self.fakeconn,
-                                                   snapshot_ids=["snap-111111"],
-                                                   volume_id=None,
-                                                   description="",
-                                                   count=2,
-                                                   limit=0,
-                                                   count_type="days",
-                                                   filters={"Name": "Backup"},
-                                                   tags={},
-                                                   owner="self",
-                                                   auto_confirm=True,
-                                                   dry_run=False)
+        self.mock_snapshot.assert_called_once_with(
+            self.fakeconn,
+            snapshot_ids=["snap-111111"],
+            volume_id=None,
+            description="",
+            count=2,
+            limit=0,
+            count_type="days",
+            filters={"Name": "Backup"},
+            tags={},
+            owner="self",
+            auto_confirm=True,
+            dry_run=False
+        )
         self.mock_snapshot_instance.run.assert_called_once_with("delete")
         self.parse_args_patch.start()

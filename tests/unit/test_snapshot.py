@@ -8,6 +8,7 @@ from boto.ec2.snapshot import Snapshot
 
 from simplesnapshot.snapshot import *
 
+
 class TestSimpleSnapshot(unittest.TestCase):
 
     def setUp(self):
@@ -88,74 +89,72 @@ class TestSimpleSnapshot(unittest.TestCase):
 
     def test_by_num_inverse(self):
         snapinverse = SimpleSnapshot(self.fakeconn)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapinverse.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2, self.fake3,
                           self.fake4, self.fake5])
 
         snapinverse1 = SimpleSnapshot(self.fakeconn, count=1)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapinverse1.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2, self.fake3, self.fake4])
 
         snapinverse4 = SimpleSnapshot(self.fakeconn, count=4)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapinverse4.get_snapshots(inverse=True)],
                          [self.fake1])
 
         snapnegative = SimpleSnapshot(self.fakeconn, count=-2)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapnegative.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2, self.fake3,
                           self.fake4, self.fake5])
 
-
     def test_inverse_limit(self):
         snapnum1 = SimpleSnapshot(self.fakeconn, limit=1)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapnum1.get_snapshots(inverse=True)],
                          [self.fake1])
 
         snapnum2 = SimpleSnapshot(self.fakeconn, count=2, limit=4)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapnum2.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2, self.fake3])
 
         snapdays1 = SimpleSnapshot(self.fakeconn, count=2, limit=2,
                                    count_type="days")
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapdays1.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2])
 
         snapdays2 = SimpleSnapshot(self.fakeconn, count=1, limit=4,
                                    count_type="days")
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapdays2.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2, self.fake3, self.fake4])
 
         snapnegative1 = SimpleSnapshot(self.fakeconn, count=3, limit=-1)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapnegative1.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2])
 
         snapnegative2 = SimpleSnapshot(self.fakeconn, count=-1,
                                        limit=-1, count_type="days")
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapnegative2.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2, self.fake3,
                           self.fake4, self.fake5])
 
         snapnegative3 = SimpleSnapshot(self.fakeconn, count=-1, limit=2)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapnegative3.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2])
 
         snapnegative4 = SimpleSnapshot(self.fakeconn, count=-1, limit=4,
                                        count_type="days")
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapnegative4.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2, self.fake3, self.fake4])
-
 
     def test_by_days(self):
         snapshot1 = SimpleSnapshot(self.fakeconn, count=1,
@@ -190,21 +189,21 @@ class TestSimpleSnapshot(unittest.TestCase):
         snapshot1 = SimpleSnapshot(self.fakeconn, count=2,
                                    limit=1, count_type="days",
                                    from_date=self.fakedate)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapshot1.get_snapshots(inverse=True)],
                          [self.fake1])
 
         snapshot2 = SimpleSnapshot(self.fakeconn, count=3,
                                    count_type="days",
                                    from_date=self.fakedate)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapshot2.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2])
 
         snapnegative1 = SimpleSnapshot(self.fakeconn, limit=-2,
                                        count_type="days",
                                        from_date=self.fakedate)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapnegative1.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2, self.fake3,
                           self.fake4, self.fake5])
@@ -212,9 +211,10 @@ class TestSimpleSnapshot(unittest.TestCase):
         snapnegative2 = SimpleSnapshot(self.fakeconn, count=-1,
                                        limit=4, count_type="days",
                                        from_date=self.fakedate)
-        self.assertEqual([x._snapshot for x in \
+        self.assertEqual([x._snapshot for x in
                           snapnegative2.get_snapshots(inverse=True)],
                          [self.fake1, self.fake2, self.fake3, self.fake4])
+
 
 class TestSnapshotActions(unittest.TestCase):
 

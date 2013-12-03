@@ -18,6 +18,7 @@ import sys
 from datetime import datetime, timedelta
 from boto.exception import EC2ResponseError
 
+
 class SnapshotWrapper(object):
     """Wrapper class for boto.ec2.snapshot.Snapshot
 
@@ -39,6 +40,7 @@ class SnapshotWrapper(object):
 
     def __getattr__(self, attr):
         return self._snapshot.__getattribute__(attr)
+
 
 class SimpleSnapshot(object):
     """Base class for sorted snapshot discovery.
@@ -116,18 +118,18 @@ class SimpleSnapshot(object):
         self.snapshot_ids = snapshot_ids
         self.count = count
         self.limit = limit
-        self.type = count_type
+        self.count_type = count_type
         self.filters = filters
-        self.owner=owner
+        self.owner = owner
         self.from_date = from_date
 
         # set the filter function
-        if self.type == "days":
+        if self.count_type == "days":
             self._filter_func = self._by_days
-        elif self.type == 'num':
+        elif self.count_type == 'num':
             self._filter_func = self._by_num
         else:
-            raise ValueError("Invalid count_type: {0}".format(self.type))
+            raise ValueError("Invalid count_type: {0}".format(self.count_type))
 
         self._snapshots = None
 
@@ -214,6 +216,7 @@ class SimpleSnapshot(object):
 
     def run(self):
         raise NotImplementedError("Must be defined in a subclass")
+
 
 class SimpleSnapshotConsole(SimpleSnapshot):
 
