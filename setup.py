@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 from setuptools import setup
 
+from simplesnapshot import __version__
+
 setup(
     name="ec2-simple-snapshot",
-    version="1.0.0",
+    version=__version__,
     description="A tool to make EC2 snapshot manipulation easier.",
     long_description=file("README.rst").read(),
     packages=["simplesnapshot"],
