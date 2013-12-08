@@ -14,10 +14,7 @@
 # limitations under the License.
 import sys
 
-__version__ = "1.0.1"
-
 from simplesnapshot.cmdline import main as _main
-
 
 def main():
     # Entry point for command line script
